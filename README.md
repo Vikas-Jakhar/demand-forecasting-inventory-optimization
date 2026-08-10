@@ -54,6 +54,7 @@ Inventory Optimization
         │
         ▼
 KPI Dashboard
+```
 
   ## Dataset
 
@@ -72,62 +73,63 @@ Random demand variability
 
 The synthetic data is generated using generate_data.py, making the complete project reproducible.
 
-Exploratory Data Analysis
+## Exploratory Data Analysis
 
 The EDA stage identified several demand patterns.
 
-Key Findings
-Metric	Result
-Average total demand	520.1 units/day
-Weekend demand lift	+30.6%
-Promotion demand lift	+44.9%
-Peak demand month	November
+## Key Findings
+Metric	                                        Result
+Average total demand	                        520.1 units/day
+Weekend demand lift                            	+30.6%
+Promotion demand lift	                        +44.9%
+Peak demand month	                            November
 
 Demand variability also differed substantially between products.
 
 For example:
 
-USB-C Cable had relatively stable demand with a coefficient of variation of approximately 0.25.
-Wireless Earbuds had significantly higher relative variability with a coefficient of variation of approximately 0.45.
+  *USB-C Cable had relatively stable demand with a coefficient of variation of approximately 0.25.
+  *Wireless Earbuds had significantly higher relative variability with a coefficient of variation      of approximately 0.45.
 
 These patterns were considered when developing the forecasting and inventory strategy.
 
-Demand Forecasting
+## Demand Forecasting
 
 Two forecasting approaches were evaluated:
 
-Baseline
+## Baseline
 
 A 7-day moving average was used as a simple benchmark.
 
-Machine Learning Model
+## Machine Learning Model
 
 A Random Forest regression model was trained using historical demand and engineered temporal features.
 
 Features include:
 
-Lagged demand
-Rolling demand statistics
-Day of week
-Month
-Promotion indicator
-Product-level demand history
-Evaluation Method
+ * Lagged demand
+ * Rolling demand statistics
+ * Day of week
+ * Month
+ * Promotion indicator
+ * Product-level demand history
+   
+## Evaluation Method
 
 The last 60 days of demand for each product were held out as the test period.
 
 The model was evaluated using:
 
-Mean Absolute Error (MAE)
-Root Mean Squared Error (RMSE)
-Mean Absolute Percentage Error (MAPE)
+ * Mean Absolute Error (MAE)
+ * Root Mean Squared Error (RMSE)
+ * Mean Absolute Percentage Error (MAPE)
 
-Forecasting Results
+## Forecasting Results
 Metric                        Baseline	                     Random Forest
 Average MAE	                   14.28	                           11.07
 Average MAPE	                 26.98%	                           21.81%
 
-Result
+## Result
 
 Random Forest reduced average MAE by 22.5% compared with the 7-day moving-average baseline.
 
@@ -135,37 +137,33 @@ Performance varied by SKU. For example, the model improved MAE by more than 30% 
 
 This variation highlights that a single forecasting approach may not be optimal for every demand pattern.
 
-Inventory Optimization
+## Inventory Optimization
 
 The demand information was then used to construct an inventory policy.
 
-Economic Order Quantity
+### Economic Order Quantity
 
 EOQ was calculated to determine an economically appropriate replenishment quantity based on demand, ordering cost, and holding cost assumptions.
 
-EOQ=
-H
-2DS
+EOQ= sqrt((2DS)/H)
 	​
-
-	​
-
 
 where:
 
 D = annual demand
 S = ordering cost
 H = annual holding cost per unit
-Safety Stock
+
+### Safety Stock
 
 Safety stock was calculated to provide a buffer against demand variability.
 
-Reorder Point
+### Reorder Point
 
 The reorder point determines when replenishment should be triggered.
 
 ROP=Lead Time Demand + Safety Stock
-Inventory Simulation
+### Inventory Simulation
 
 A 60-day inventory simulation was performed to compare:
 
@@ -180,7 +178,7 @@ The ML-driven policy reduced aggregate simulated stockout-days from 9 to 6, corr
 
 The impact varied across SKUs. Some products experienced complete elimination of stockout-days, while others showed no change during the simulation period.
 
-Dashboard
+## Dashboard
 
 The project generates an Excel KPI dashboard containing:
 
@@ -190,10 +188,10 @@ Inventory policy parameters
 Stockout performance
 Service-level metrics
 
-Output:
+### Output:
 
 outputs/KPI_Dashboard.xlsx
-Project Structure
+### Project Structure
 demand-forecasting-inventory-optimization/
 │
 ├── data/
@@ -218,7 +216,7 @@ demand-forecasting-inventory-optimization/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
-How to Run
+### How to Run
 1. Clone the repository
 git clone https://github.com/Vikas-Jakhar/demand-forecasting-inventory-optimization.git
 cd demand-forecasting-inventory-optimization
@@ -243,7 +241,7 @@ python 04_kpi_dashboard.py
 
 The generated datasets and analytical outputs will be saved in the data/ and outputs/ directories.
 
-Technologies Used
+### Technologies Used
 Python
 Pandas
 NumPy
@@ -256,7 +254,7 @@ Inventory Optimization
 EOQ
 Safety Stock
 Reorder Point
-Limitations
+### Limitations
 
 This project uses synthetic data rather than proprietary business data.
 
@@ -266,12 +264,12 @@ The inventory simulation also uses simplified assumptions for costs, lead times,
 
 A production system would require integration with real sales, inventory, supplier lead-time, procurement, and warehouse data.
 
-Key Results
+### Key Results
 
 22.5% lower average MAE using Random Forest compared with a 7-day moving-average baseline.
 
 33.3% reduction in simulated stockout-days using the ML-driven inventory policy.
 
-Author
+## Author
 Vikas Jakhar
 GitHub:https://github.com/Vikas-Jakhar
