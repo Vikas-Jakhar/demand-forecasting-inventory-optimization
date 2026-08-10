@@ -192,6 +192,7 @@ Service-level metrics
 
 outputs/KPI_Dashboard.xlsx
 ### Project Structure
+```text
 demand-forecasting-inventory-optimization/
 │
 ├── data/
@@ -216,6 +217,7 @@ demand-forecasting-inventory-optimization/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
+```
 ### How to Run
 1. Clone the repository
 git clone https://github.com/Vikas-Jakhar/demand-forecasting-inventory-optimization.git
