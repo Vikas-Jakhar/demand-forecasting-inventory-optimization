@@ -1,0 +1,11 @@
+product_name,total_demand,avg_daily_demand,volatility_std,coefficient_of_variation
+USB-C Cable,85041,116.49,29.23,0.25
+Phone Case,67597,92.6,22.94,0.25
+Wireless Earbuds,46178,63.26,28.32,0.45
+Wireless Mouse,45038,61.7,17.48,0.28
+Power Bank 10000mAh,35829,49.08,15.35,0.31
+Bluetooth Speaker,33105,45.35,17.12,0.38
+Laptop Backpack,19964,27.35,8.77,0.32
+Smart Watch,18336,25.12,11.15,0.44
+LED Desk Lamp,17061,23.37,6.41,0.27
+Mechanical Keyboard,11510,15.77,5.03,0.32

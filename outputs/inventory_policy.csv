@@ -1,0 +1,11 @@
+product_id,product_name,avg_daily_demand,std_daily_demand,annual_demand_D,EOQ,safety_stock,reorder_point,starting_inventory
+P01,Wireless Mouse,61.7,17.48,22519.0,613.0,64.0,372.0,1234.0
+P02,Bluetooth Speaker,45.35,17.12,16552.0,525.0,63.0,290.0,907.0
+P03,USB-C Cable,116.49,29.23,42520.0,842.0,108.0,690.0,2330.0
+P04,Laptop Backpack,27.35,8.77,9982.0,408.0,32.0,169.0,547.0
+P05,Smart Watch,25.12,11.15,9168.0,391.0,41.0,167.0,502.0
+P06,Power Bank 10000mAh,49.08,15.35,17914.0,546.0,56.0,301.0,982.0
+P07,Mechanical Keyboard,15.77,5.03,5755.0,310.0,19.0,98.0,315.0
+P08,LED Desk Lamp,23.37,6.41,8530.0,377.0,24.0,141.0,467.0
+P09,Phone Case,92.6,22.94,33798.0,751.0,84.0,547.0,1852.0
+P10,Wireless Earbuds,63.26,28.32,23089.0,620.0,104.0,420.0,1265.0

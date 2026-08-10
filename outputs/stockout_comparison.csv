@@ -1,0 +1,11 @@
+product_id,product_name,sim_days,stockout_days_before,stockout_days_after,stockout_units_before,stockout_units_after,service_level_before_pct,service_level_after_pct,stockout_day_reduction_pct
+P01,Wireless Mouse,60,4,3,26.0,26.0,93.33,95.0,25.0
+P02,Bluetooth Speaker,60,0,0,0.0,0.0,100.0,100.0,0.0
+P03,USB-C Cable,60,0,0,0.0,0.0,100.0,100.0,0.0
+P04,Laptop Backpack,60,0,0,0.0,0.0,100.0,100.0,0.0
+P05,Smart Watch,60,1,1,26.0,26.0,98.33,98.33,0.0
+P06,Power Bank 10000mAh,60,0,0,0.0,0.0,100.0,100.0,0.0
+P07,Mechanical Keyboard,60,1,0,10.0,0.0,98.33,100.0,100.0
+P08,LED Desk Lamp,60,1,0,3.0,0.0,98.33,100.0,100.0
+P09,Phone Case,60,0,0,0.0,0.0,100.0,100.0,0.0
+P10,Wireless Earbuds,60,2,2,70.0,70.0,96.67,96.67,0.0
