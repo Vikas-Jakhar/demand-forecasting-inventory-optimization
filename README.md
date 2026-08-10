@@ -55,7 +55,7 @@ Inventory Optimization
         ▼
 KPI Dashboard
 
-Dataset
+  ## Dataset
 
 The project uses a synthetically generated retail demand dataset because proprietary company sales and inventory data were not available.
 
