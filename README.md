@@ -1,111 +1,277 @@
 # Demand Forecasting & Inventory Optimization System
 
-An end-to-end supply-chain analytics project: synthetic sales data →
-EDA → demand forecasting (baseline vs ML) → EOQ / safety stock / reorder
-point → inventory simulation → stockout comparison → KPI dashboard.
+A machine-learning-based supply chain analytics project that combines demand forecasting with inventory optimization to improve replenishment decisions and reduce simulated stockouts.
 
-Built for a resume project connected to supply-chain / operations roles
-(demand planning, inventory optimization, fulfillment, KPI analysis, RCA).
+## Project Overview
 
-## Project structure
+The objective of this project is to build an end-to-end demand forecasting and inventory optimization pipeline for a multi-SKU retail environment.
 
-```
-01_demand_forecasting_inventory/
-├── README.md
-├── requirements.txt
-├── generate_data.py            # Step 1: synthetic sales data
-├── 01_eda.py                   # Step 2: exploratory data analysis
-├── 02_forecasting.py           # Step 3: baseline vs ML forecast
-├── 03_inventory_optimization.py# Step 4: EOQ, safety stock, ROP, simulation
-├── 04_kpi_dashboard.py         # Step 5: consolidated Excel KPI dashboard
+The system:
+
+- Generates a reproducible synthetic retail demand dataset
+- Performs exploratory data analysis
+- Identifies seasonality, promotion effects, and demand variability
+- Compares a 7-day moving-average forecasting baseline with a Random Forest model
+- Calculates EOQ, safety stock, and reorder points
+- Simulates inventory performance under baseline and ML-driven policies
+- Produces a consolidated Excel KPI dashboard
+
+## Project Pipeline
+
+```text
+Synthetic Demand Data
+        │
+        ▼
+Exploratory Data Analysis
+        │
+        ├── Product Demand
+        ├── Seasonality
+        ├── Weekend Effects
+        └── Promotion Impact
+        │
+        ▼
+Demand Forecasting
+        │
+        ├── 7-Day Moving Average
+        └── Random Forest
+        │
+        ▼
+Forecast Evaluation
+        │
+        ├── MAE
+        ├── RMSE
+        └── MAPE
+        │
+        ▼
+Inventory Optimization
+        │
+        ├── EOQ
+        ├── Safety Stock
+        └── Reorder Point
+        │
+        ▼
+60-Day Inventory Simulation
+        │
+        ▼
+KPI Dashboard
+
+Dataset
+
+The project uses a synthetically generated retail demand dataset because proprietary company sales and inventory data were not available.
+
+The dataset contains:
+
+10 products/SKUs
+730 days of historical demand
+7,300 total observations
+Product-level demand variation
+Weekday/weekend effects
+Promotional demand changes
+Monthly seasonality
+Random demand variability
+
+The synthetic data is generated using generate_data.py, making the complete project reproducible.
+
+Exploratory Data Analysis
+
+The EDA stage identified several demand patterns.
+
+Key Findings
+Metric	Result
+Average total demand	520.1 units/day
+Weekend demand lift	+30.6%
+Promotion demand lift	+44.9%
+Peak demand month	November
+
+Demand variability also differed substantially between products.
+
+For example:
+
+USB-C Cable had relatively stable demand with a coefficient of variation of approximately 0.25.
+Wireless Earbuds had significantly higher relative variability with a coefficient of variation of approximately 0.45.
+
+These patterns were considered when developing the forecasting and inventory strategy.
+
+Demand Forecasting
+
+Two forecasting approaches were evaluated:
+
+Baseline
+
+A 7-day moving average was used as a simple benchmark.
+
+Machine Learning Model
+
+A Random Forest regression model was trained using historical demand and engineered temporal features.
+
+Features include:
+
+Lagged demand
+Rolling demand statistics
+Day of week
+Month
+Promotion indicator
+Product-level demand history
+Evaluation Method
+
+The last 60 days of demand for each product were held out as the test period.
+
+The model was evaluated using:
+
+Mean Absolute Error (MAE)
+Root Mean Squared Error (RMSE)
+Mean Absolute Percentage Error (MAPE)
+
+Forecasting Results
+Metric                        Baseline	                     Random Forest
+Average MAE	                   14.28	                           11.07
+Average MAPE	                 26.98%	                           21.81%
+
+Result
+
+Random Forest reduced average MAE by 22.5% compared with the 7-day moving-average baseline.
+
+Performance varied by SKU. For example, the model improved MAE by more than 30% for several high-volume products, while the Smart Watch SKU showed a small deterioration.
+
+This variation highlights that a single forecasting approach may not be optimal for every demand pattern.
+
+Inventory Optimization
+
+The demand information was then used to construct an inventory policy.
+
+Economic Order Quantity
+
+EOQ was calculated to determine an economically appropriate replenishment quantity based on demand, ordering cost, and holding cost assumptions.
+
+EOQ=
+H
+2DS
+	​
+
+	​
+
+
+where:
+
+D = annual demand
+S = ordering cost
+H = annual holding cost per unit
+Safety Stock
+
+Safety stock was calculated to provide a buffer against demand variability.
+
+Reorder Point
+
+The reorder point determines when replenishment should be triggered.
+
+ROP=Lead Time Demand + Safety Stock
+Inventory Simulation
+
+A 60-day inventory simulation was performed to compare:
+
+ 1.Baseline inventory policy
+ 2.ML-driven inventory policy
+Results
+KPI	Baseline	ML Policy
+Stockout-days	9	6
+Stockout-day reduction	—	33.3%
+
+The ML-driven policy reduced aggregate simulated stockout-days from 9 to 6, corresponding to a 33.3% reduction.
+
+The impact varied across SKUs. Some products experienced complete elimination of stockout-days, while others showed no change during the simulation period.
+
+Dashboard
+
+The project generates an Excel KPI dashboard containing:
+
+Forecast accuracy metrics
+Model comparison
+Inventory policy parameters
+Stockout performance
+Service-level metrics
+
+Output:
+
+outputs/KPI_Dashboard.xlsx
+Project Structure
+demand-forecasting-inventory-optimization/
+│
 ├── data/
-│   └── sales_data.csv          # generated dataset
-└── outputs/                    # all generated results (csv, png, xlsx)
-```
+│   └── sales_data.csv
+│
+├── outputs/
+│   ├── KPI_Dashboard.xlsx
+│   ├── eda_plots.png
+│   ├── eda_summary.csv
+│   ├── forecast_results.csv
+│   ├── inventory_policy.csv
+│   ├── model_comparison.csv
+│   ├── simulation_before.csv
+│   ├── simulation_after.csv
+│   └── stockout_comparison.csv
+│
+├── generate_data.py
+├── 01_eda.py
+├── 02_forecasting.py
+├── 03_inventory_optimization.py
+├── 04_kpi_dashboard.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+How to Run
+1. Clone the repository
+git clone https://github.com/Vikas-Jakhar/demand-forecasting-inventory-optimization.git
+cd demand-forecasting-inventory-optimization
+2. Create a virtual environment
+python -m venv .venv
+3. Activate the environment
 
-## How to run (in order)
+Windows PowerShell:
 
-```bash
+.venv\Scripts\Activate.ps1
+4. Install dependencies
 pip install -r requirements.txt
+5. Run the pipeline
 
-python generate_data.py             # creates data/sales_data.csv
-python 01_eda.py                    # creates outputs/eda_summary.csv, eda_plots.png
-python 02_forecasting.py            # creates outputs/forecast_results.csv, model_comparison.csv
-python 03_inventory_optimization.py # creates outputs/inventory_policy.csv, stockout_comparison.csv
-python 04_kpi_dashboard.py          # creates outputs/KPI_Dashboard.xlsx
-```
+Run the scripts in the following order:
 
-Each script depends on the outputs of the one before it, so run them in
-order the first time. After that you can re-run any single script.
+python generate_data.py
+python 01_eda.py
+python 02_forecasting.py
+python 03_inventory_optimization.py
+python 04_kpi_dashboard.py
 
-## What each stage actually does
+The generated datasets and analytical outputs will be saved in the data/ and outputs/ directories.
 
-### 1. Data generation (`generate_data.py`)
-Produces 2 years of daily sales for 10 SKUs with deliberate, documented
-demand drivers: weekday/weekend pattern, yearly seasonality with a
-festive bump (Oct-Dec), random promotion bursts (+30-70% lift), a slow
-growth trend, and Poisson-like noise. Because we control the generator,
-every number downstream can be traced back to a cause -- useful for
-explaining the project in an interview.
+Technologies Used
+Python
+Pandas
+NumPy
+Scikit-learn
+Matplotlib
+OpenPyXL
+Machine Learning
+Demand Forecasting
+Inventory Optimization
+EOQ
+Safety Stock
+Reorder Point
+Limitations
 
-### 2. EDA (`01_eda.py`)
-Answers: which products sell most, weekday vs weekend lift, promotion
-lift, monthly seasonality, and which SKUs are most volatile
-(coefficient of variation). Produces a 4-panel chart and a summary CSV.
+This project uses synthetic data rather than proprietary business data.
 
-### 3. Forecasting (`02_forecasting.py`)
-- **Baseline**: trailing 7-day moving average (a standard, defensible
-  industry baseline -- not a strawman).
-- **ML model**: Random Forest using lag features (1/7/14/28 days),
-  rolling means (7/14/28 days), day-of-week, month, and promotion flag.
-- **Split**: last 60 days per product held out, time-based (no shuffling,
-  no leakage -- rolling features only use past data).
-- **Metrics**: MAE, RMSE, MAPE per product and overall.
-- The script prints the **actual** improvement percentage. In our run
-  this came out to **~22.5% MAE improvement**, which is what you should
-  quote -- not a number picked in advance.
+Therefore, the reported performance metrics represent results from the project's simulated environment and should not be interpreted as real-world company performance.
 
-### 4. Inventory optimization (`03_inventory_optimization.py`)
-Implements the classic textbook chain and simulates it:
-- **EOQ** = sqrt(2DS/H)
-- **Safety stock** = z * σ_demand * sqrt(lead time), z = 1.645 for 95% service level
-- **Reorder point** = avg daily demand * lead time + safety stock
-- **Simulation**: day-by-day inventory tracked against actual demand,
-  reordering triggered by a forecast-informed policy, once using the
-  baseline forecast and once using the ML forecast, so you get a clean
-  "before vs after" stockout comparison under identical conditions.
-- All cost/lead-time assumptions (ordering cost, holding cost %, unit
-  cost, lead time, service level) are declared as constants at the top
-  of the script -- change them to match a real scenario and be ready to
-  justify them in an interview.
+The inventory simulation also uses simplified assumptions for costs, lead times, demand behavior, and replenishment.
 
-### 5. KPI dashboard (`04_kpi_dashboard.py`)
-Consolidates everything into `outputs/KPI_Dashboard.xlsx` with a
-Summary sheet (headline numbers) plus one sheet per analysis stage.
+A production system would require integration with real sales, inventory, supplier lead-time, procurement, and warehouse data.
 
-## Honest caveats to mention in an interview
+Key Results
 
-- The dataset is synthetic (by design, so every number is explainable),
-  not scraped from Kaggle. Say this proactively -- it's a strength, not
-  a weakness, because you can defend every assumption.
-- With a well-tuned safety-stock policy, stockouts are naturally rare
-  (that's the point of safety stock), so the "before vs after" stockout
-  counts are small in absolute terms (e.g. single-digit stockout-days
-  across 10 SKUs over 60 days). Report the percentage reduction *and*
-  the raw counts together so it doesn't look inflated.
-- Random Forest is a reasonable, explainable ML choice for a resume
-  project. If you want a stronger result, mention XGBoost/LightGBM or a
-  seasonal ARIMA/Prophet baseline as "next steps" -- that shows range.
+22.5% lower average MAE using Random Forest compared with a 7-day moving-average baseline.
 
-## Suggested resume line (based on actual results from this run)
+33.3% reduction in simulated stockout-days using the ML-driven inventory policy.
 
-> Built an end-to-end demand forecasting and inventory optimization
-> system in Python (Pandas, scikit-learn); improved forecast accuracy
-> by ~22% (MAE) over a moving-average baseline using a Random Forest
-> model with lag/rolling features, and reduced simulated stockout days
-> by ~33% through EOQ/safety-stock-driven reorder policy tied to the
-> improved forecast.
-
-Re-run the scripts and use whatever numbers you actually get -- they
-will vary slightly with any changes to the generator or model.
-
+Author
+Vikas Jakhar
+GitHub:https://github.com/Vikas-Jakhar
