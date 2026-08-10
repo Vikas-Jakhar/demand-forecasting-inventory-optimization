@@ -109,10 +109,3 @@ Summary sheet (headline numbers) plus one sheet per analysis stage.
 Re-run the scripts and use whatever numbers you actually get -- they
 will vary slightly with any changes to the generator or model.
 
-## Next steps (Project 2)
-
-Once this is working end-to-end, we move to **Warehouse Management and
-Operations Optimization**: ABC classification, SKU demand ranking,
-warehouse slotting, pick-time simulation, and fulfillment KPIs -- the
-project that maps most directly to the Flipkart NEEV JD's emphasis on
-day-to-day operations, fulfillment, and process improvement.
