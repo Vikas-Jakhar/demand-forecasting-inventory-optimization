@@ -99,7 +99,7 @@ Performance Comparison
         ▼
 Streamlit Dashboard
 ```
-##Dataset
+## Dataset
 
 The project uses a synthetically generated retail demand dataset because proprietary company sales and inventory data were not available.
 
@@ -116,7 +116,7 @@ The dataset contains:
 
 The synthetic data is generated using generate_data.py, making the project reproducible.
 
-##Data Validation and Profiling
+## Data Validation and Profiling
 
 Before forecasting, the dataset is checked and profiled to support data quality and exploratory analysis.
 
@@ -130,7 +130,7 @@ The project includes modules for:
 
 These utilities are available in the src/ directory.
 
-##Exploratory Data Analysis
+## Exploratory Data Analysis
 
 The EDA stage was used to identify important demand patterns before model development.
 
@@ -142,7 +142,7 @@ The analysis examines:
 *Promotional demand effects
 *Demand variability across SKUs
 
-##Key Findings
+## Key Findings
 Metric                                       	Result
 Average Total Demand	                        520.1 units/day
 Weekend Demand Lift                         	+30.6%
@@ -158,11 +158,11 @@ For example:
 
 These demand patterns motivated the use of lag, rolling-window, calendar, and promotion features in the forecasting model.
 
-##Demand Forecasting
+## Demand Forecasting
 
 Two forecasting approaches were evaluated.
 
-###1. Traditional Baseline
+### 1. Traditional Baseline
 
 A 7-day trailing moving average was used as the forecasting baseline.
 
@@ -170,7 +170,7 @@ For each day, the baseline prediction is calculated using demand from the previo
 
 This provides a simple and interpretable benchmark against which the machine learning model can be evaluated.
 
-###2. Machine Learning Model
+### 2. Machine Learning Model
 
 A Random Forest Regressor was trained separately for each product using historical demand and engineered temporal features.
 
@@ -188,7 +188,7 @@ Features Used
 
 The rolling features use only historical observations available before the prediction date, helping avoid future-data leakage.
 
-##Evaluation Method
+## Evaluation Method
 
 The final 60 days of data for each product were reserved as the test period.
 
@@ -205,12 +205,12 @@ The models were evaluated using:
  *Root Mean Squared Error (RMSE)
  *Mean Absolute Percentage Error (MAPE)
  
-###Forecasting Results
+### Forecasting Results
 Metric	                         Traditional Baseline	                 Random Forest
 Average MAE	                          14.28	                                 11.07
 Average MAPE	                      26.98%	                             21.81%
 
-###Result
+### Result
 
 The Random Forest model reduced average MAE by 22.5% compared with the 7-day moving-average baseline.
 ```text
@@ -223,7 +223,7 @@ The Random Forest model improved forecasting accuracy for most products, with se
 
 One SKU, Smart Watch, showed a small deterioration in MAE, demonstrating that a single forecasting model may not perform equally well for every demand pattern.
 
-##Inventory Optimization
+## Inventory Optimization
 
 The demand information was used to construct inventory policies for each SKU.
 
@@ -233,7 +233,7 @@ The project calculates:
  *Safety Stock 
  *Reorder Point 
  
-###Economic Order Quantity
+### Economic Order Quantity
 
 EOQ estimates an appropriate replenishment quantity by balancing ordering and inventory holding costs.
 
@@ -246,13 +246,13 @@ D = Annual demand
 S = Ordering cost per order
 H = Annual holding cost per unit
 
-###Safety Stock
+### Safety Stock
 
 Safety Stock provides an inventory buffer against demand uncertainty and variability.
 
 It helps reduce the probability of running out of stock while waiting for replenishment orders to arrive.
 
-###Reorder Point
+### Reorder Point
 
 The Reorder Point determines when a replenishment order should be triggered.
 
@@ -261,7 +261,7 @@ Reorder Point = Expected Demand During Lead Time + Safety Stock
 ```
 The inventory policy is calculated separately for each product based on its demand characteristics.
 
-###Inventory Simulation
+### Inventory Simulation
 
 A 60-day daily inventory simulation was performed using the test-period demand data.
 
@@ -281,25 +281,25 @@ The simulation models:
 
 Actual demand is used to deplete inventory, while forecast demand is used to support replenishment decisions.
 
-##Traditional vs ML-Driven Inventory Policy
+## Traditional vs ML-Driven Inventory Policy
 
 Two inventory approaches were compared.
 
-###Traditional Policy
+### Traditional Policy
 
 The Traditional policy uses the demand estimate produced by the 7-day moving-average baseline to support inventory planning and replenishment decisions.
 
-###ML-Driven Policy
+### ML-Driven Policy
 
 The ML-driven policy uses the Random Forest demand forecast to support forecast-informed replenishment decisions.
 
 This allows the simulation to evaluate whether improved demand forecasting translates into better inventory performance.
 
-###Stockout Simulation Results
+### Stockout Simulation Results
 Metric	                            Traditional Policy	                 ML-Driven Policy
 Total Stockout-Days                        	24	                                  8
 
-###Result
+### Result
 
 The ML-driven inventory policy reduced total simulated stockout-days from 24 to 8.
 
@@ -315,7 +315,7 @@ The improvement is calculated directly from the simulation results and is not a 
 
 Performance varies by SKU. Some products experienced complete elimination of simulated stockouts, while others showed smaller improvements.
 
-###Interactive Streamlit Dashboard
+### Interactive Streamlit Dashboard
 
 The project includes an interactive Streamlit application for exploring the results.
 
@@ -335,7 +335,7 @@ The dashboard provides:
 *Overall forecast improvement
 *Overall stockout reduction
 
-##Running the Dashboard
+## Running the Dashboard
 
 After generating the forecasting and inventory outputs, run:
 ```text
@@ -346,7 +346,7 @@ The application will start locally and display a URL similar to:
 http://localhost:8501
 ```
 Open this URL in your browser to use the dashboard.
-##Project Structure
+## Project Structure
 ```text
 demand-forecasting-inventory-optimization/
 │
@@ -375,7 +375,7 @@ demand-forecasting-inventory-optimization/
 ├── README.md
 └── .gitignore
 ```
-##How to Run
+## How to Run
 1. Clone the Repository
 ```text
 git clone https://github.com/Vikas-Jakhar/demand-forecasting-inventory-optimization.git
@@ -409,7 +409,7 @@ streamlit run app.py
 ```
 The generated datasets and analytical outputs will be saved in the data/ and outputs/ directories.
 
-###Technologies Used
+### Technologies Used
 Python
 Pandas
 NumPy
@@ -432,7 +432,7 @@ Reorder Point
 Inventory Simulation
 Stockout Analysis
 Service-Level Analysis
-###Limitations
+### Limitations
 
 This project uses synthetic data rather than proprietary business data.
 
@@ -457,7 +457,7 @@ Product costs
 
 Further improvements could include probabilistic forecasting and dynamic safety-stock calculation based on forecast uncertainty.
 
-###Key Results Summary
+### Key Results Summary
 Result	                                                        Performance
 Forecast Accuracy Improvement	                                  22.5%
 Baseline Average MAE	                                          14.28 units
@@ -468,7 +468,7 @@ Simulated Stockout-Day Reduction	                              66.7%
 
 All results are based on the synthetic dataset and the inventory simulation implemented in this project.
 
-###Author
+### Author
 
 Vikas Jakhar
 
